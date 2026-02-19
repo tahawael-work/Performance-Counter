@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taha's Counter Pro</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  <div class="lmaoaoa">
+<div class="left">
+    <div class="metric-card" style="width: max-content;">
+      <div class="controls" id="ctrl-credits">
+        <span class="percentage" id="ready">Ready</span>
+        <input type="" id="ready-val" class="manual-input" value="0" style="width: 40px; margin-right: 15px;">
+      </div>
+      <div class="controls" id="ctrl-credits">
+        <span class="percentage" id="In">In</span>
+        <input type="" id="in-val" class="manual-input" value="0" style="width: 40px;margin-right: 15px;">
+      </div>
+      <div class="controls" id="ctrl-credits">
+        <span class="percentage" id="ready">Call len.</span>
+        <input type="" id="call-len-val" class="manual-input" value="7" style="width: 40px;margin-right: 40px;">
+      </div>
+      <div class="metric-info">
+        <span class="label" style="display: none;">Credits Applied</span>
+        <span class="manual-input" id="est-avail">00:00</span>
+      </div>
+    </div>
+  <div class="calendar-wrapper">
+
+    <div class="calendar-header">
+        <span>Select Days</span>
+        <button class="select-all-btn" onclick="toggleSelectAll()">Select All</button>
+    </div>
+    <div class="calendar-grid" id="calendar-grid">
+    </div>
+<div class="calendar-wrapper" style="margin-top: 20px; min-height: 250px;">
+  <div class="calendar-header">
+    <span>Performance Trend</span>
+  </div>
+        <div class="chart-box">
+          <canvas id="performanceChart"></canvas>
+        </div>
+</div>
+  <div class="button-container">
+    <button id="copy-btn" class="btn-main">Screenshot</button>
+    <button id="data-cpy" class="btn-main btn-secondary" onclick="exportData()">Copy JSON</button>
+    <button id="data-pst" class="btn-main btn-secondary" onclick="importData()">Paste JSON</button>
+  </div>
+
+    <div id="lock-msg" class="lock-message">
+        Viewing Totals: Editing Disabled (Select a single day to edit)
+    </div>
+
+  </div>
+</div>
+  <div id="metrics-capture-area">
+    <h1 id="app-title">Counter</h1>
+    
+    <div class="status-bar">
+      <span class="current-view-label" id="view-label">Day 1</span>
+      <span id="last-updated">Last Updated: 00:00:00 ago</span>
+    </div>
+
+
+
+    <div class="metric-card">
+      <div class="metric-info">
+        <span class="label" style="display: none;">Call Volume</span>
+        <span class="percentage" style="color: var(--text-dim)">Calls</span>
+      </div>
+      <div class="controls" id="ctrl-calls">
+        <button class="btn-circle" onclick="change('calls', -1)">-</button>
+        <span id="calls-val" class="counter-val">0</span>
+        <button class="btn-circle" onclick="change('calls', 1)">+</button>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-info">
+        <span class="label">Payments <span id="pay-tier" class="tier-badge" style="display:none">T1</span></span>
+        <span id="pay-perc" class="percentage">0.0%</span>
+      </div>
+      <div class="controls" id="ctrl-pay">
+        <button class="btn-circle" onclick="change('pay', -1)">-</button>
+        <span id="pay-val" class="counter-val">0</span>
+        <button class="btn-circle" onclick="change('pay', 1)">+</button>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-info">
+        <span class="label">Full Balance <span id="full-tier" class="tier-badge" style="display:none">T1</span></span>
+        <span id="full-perc" class="percentage">0.0%</span>
+      </div>
+      <div class="controls" id="ctrl-full">
+        <button class="btn-circle" onclick="change('full', -1)">-</button>
+        <span id="full-val" class="counter-val">0</span>
+        <button class="btn-circle" onclick="change('full', 1)">+</button>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="metric-card">
+      <div class="metric-info">
+        <span class="label" style="display: none;">In Collection Post.</span>
+        <span class="percentage" style="color: var(--text-dim)">In Collection Post.</span>
+      </div>
+      <div class="controls" id="ctrl-coll">
+        <button class="btn-circle" onclick="change('coll', -1)">-</button>
+        <span id="coll-val" class="counter-val">0</span>
+        <button class="btn-circle" onclick="change('coll', 1)">+</button>
+      </div>
+    </div>
+
+    <div class="metric-card" style="display:none; visibility: hidden;">
+      <div class="metric-info" style="display:none; visibility: hidden;">
+        <span class="label" style="display:none; visibility: hidden;">Removed Coll. <span id="rem-tier" class="tier-badge" style="display:none; visibility: hidden;">T1</span></span>
+        <span id="rem-perc" class="percentage" style="display:none; visibility: hidden;">0.0%</span>
+        <span class="percentage" style="color: var(--text-dim);display:none; visibility: hidden; ">Removed Coll.</span>
+      </div>
+      <div class="controls" id="ctrl-rem" style="display:none; visibility: hidden;">
+        <button class="btn-circle" onclick="change('rem', -1)">-</button>
+        <span id="rem-val" class="counter-val">0</span>
+        <button class="btn-circle" onclick="change('rem', 1)">+</button>
+      </div>
+
+    </div>
+    <div class="metric-card">
+      <div class="metric-info">
+        <span class="label">Removed Post. <span id="post-tier" class="tier-badge" style="display:none">T1</span></span>
+        <span id="post-perc" class="percentage">0.0%</span>
+      </div>
+      <div class="controls" id="ctrl-post">
+        <button class="btn-circle" onclick="change('post', -1)">-</button>
+        <span id="post-val" class="counter-val">0</span>
+        <button class="btn-circle" onclick="change('post', 1)">+</button>
+      </div>
+
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-info">
+        <span class="label" style="display: none;">Credits Applied</span>
+        <span class="percentage" id="cred-perc">Credits Applied</span>
+      </div>
+      <div class="controls" id="ctrl-credits">
+        <button class="btn-circle" onclick="change('credits', -50)">-</button>
+        <input type="" id="credits-val" class="manual-input" value="0">
+        <button class="btn-circle" onclick="change('credits', 50)">+</button>
+      </div>
+    </div>
+
+    <div class="metric-card lmao">
+      <div class="metric-info">
+        <span class="label" style="display: none;">Auto Pay</span>
+        <span class="percentage" style="color: var(--text-dim)">Auto Pay</span>
+        <div class="controls" id="ctrl-ap">
+            <button class="btn-circle" onclick="change('ap', -1)">-</button>
+            <span id="ap-val" class="counter-val">0</span>
+            <span id="ap-val-mon" style="color: #22c55e;"  class="counter-val">0</span>
+            <button class="btn-circle" onclick="change('ap', 1)">+</button>
+        </div>
+      </div>
+      <div class="metric-info">
+        <span class="label" style="display: none;">Payment P.</span>
+        <span class="percentage" style="color: var(--text-dim)">Payment P.</span>
+        <div class="controls" id="ctrl-pp">
+            <button class="btn-circle" onclick="change('pp', -1)">-</button>
+            <span id="pp-val" class="counter-val">0</span>
+            <span id="pp-val-mon" style="color: #22c55e;" class="counter-val">0</span>
+            <button class="btn-circle" onclick="change('pp', 1)">+</button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  </div>
+
+
+
+
+
+<div class="credits">
+    Made by :3
+  </div>
+</div>
+
+
+</body>
+</html>
