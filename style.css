@@ -40,7 +40,7 @@
       width: 100%;
       max-width: 500px;
       padding: 10px;
-		transform: scale(1.1);
+	  transform: scale(1.1);
     }
 
     /* --- Calendar Grid Styles --- */
@@ -335,4 +335,5 @@
 	
 
 	}
+
 
