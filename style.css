@@ -23,7 +23,7 @@
       opacity: 0.6;
       font-weight: 600;
       letter-spacing: 0.05em;
-	padding-bottom: 15px;
+	  padding-bottom: 15px;
     }
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -40,6 +40,7 @@
       width: 100%;
       max-width: 500px;
       padding: 10px;
+		transform: scale(1.1);
     }
 
     /* --- Calendar Grid Styles --- */
@@ -334,3 +335,4 @@
 	
 
 	}
+
