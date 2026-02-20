@@ -561,7 +561,7 @@ document.getElementById('copy-btn').onclick = function() {
   const area = document.getElementById('metrics-capture-area');
   
   html2canvas(area, { 
-      backgroundColor: '#0f172a',
+      backgroundColor: '#000000',
       scale: 3,
       // Inject CSS into the cloned document to stop all animations
       onclone: (clonedDocument) => {
