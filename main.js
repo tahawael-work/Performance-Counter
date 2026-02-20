@@ -270,14 +270,21 @@ function updateEstimation() {
 // Left panel toggle logic
 function setLeftVisibility(visible) {
     const left = document.getElementById('left-panel');
+    const right = document.getElementById('metrics-capture-area');
     const btn = document.getElementById('toggle-left-btn');
     if (!left || !btn) return;
     if (visible) {
-        left.style.display = '';
+        // left.style.display = '';
+        left.style.opacity='100'
+        left.style.transform = "translateX(0px)";
+        right.style.transform = "translateX(0px)";
         btn.innerHTML = '&#10005;'; // ×
         btn.title = 'Hide menu';
     } else {
-        left.style.display = 'none';
+        // left.style.display = 'none';
+        left.style.opacity='0'
+        left.style.transform = "translateX(210px)";
+        right.style.transform = "translateX(-210px)";
         btn.innerHTML = '&#9776;'; // ≡
         btn.title = 'Show menu';
     }

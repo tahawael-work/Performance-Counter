@@ -129,6 +129,7 @@
       position: relative;
     	min-width: 420px;
       height: fit-content;
+      transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
 
     }
 
@@ -334,10 +335,11 @@
 	padding-bottom: 30px;
   display: flex;
       align-items: flex-end;
+          padding-top: 10%;
 	}
 	.left{
-	
     margin-right: 25px;
+    transition: opacity 1s cubic-bezier(0, 0.55, 0.45, 1), transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
     #toggle-left-btn {
