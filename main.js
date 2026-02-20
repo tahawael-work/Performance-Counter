@@ -1,4 +1,4 @@
-  // --- NAME & TITLE LOGIC ---
+// --- NAME & TITLE LOGIC ---
   function checkUrlForName() {
     const params = new URLSearchParams(window.location.search);
     let name = params.get('name');
@@ -267,6 +267,49 @@ function updateEstimation() {
     displayElement.innerText = formatTime(totalMinutes);
 }
 
+// Left panel toggle logic
+function setLeftVisibility(visible) {
+    const left = document.getElementById('left-panel');
+    const btn = document.getElementById('toggle-left-btn');
+    if (!left || !btn) return;
+    if (visible) {
+        left.style.display = '';
+        btn.innerHTML = '&#10005;'; // ×
+        btn.title = 'Hide menu';
+    } else {
+        left.style.display = 'none';
+        btn.innerHTML = '&#9776;'; // ≡
+        btn.title = 'Show menu';
+    }
+    localStorage.setItem('leftVisible', visible ? '1' : '0');
+}
+
+function toggleLeft() {
+    const current = localStorage.getItem('leftVisible');
+    const visible = current === null ? true : current === '1';
+    setLeftVisibility(!visible);
+}
+
+// Ensure the DOMContentLoaded handler applies saved left state
+document.addEventListener('DOMContentLoaded', () => {
+    const leftState = localStorage.getItem('leftVisible');
+    const visible = leftState === null ? true : leftState === '1';
+    setLeftVisibility(visible);
+
+    // existing input listeners
+    const inputs = ['ready-val', 'in-val', 'call-len-val'];
+    inputs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', updateEstimation);
+    });
+    
+    // Run once on load to set initial state
+    updateEstimation();
+});
+
+// Expose toggleLeft globally for inline onclick
+window.toggleLeft = toggleLeft;
+
 document.addEventListener('DOMContentLoaded', () => {
     const inputs = ['ready-val', 'in-val', 'call-len-val'];
     inputs.forEach(id => {
@@ -327,13 +370,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (isMulti) {
         viewLabel.innerText = `Viewing Total (${selectedDays.length} Days)`;
-        lockMsg.style.display = 'block';
+        lockMsg.style.visibility = 'visible';
         controls.forEach(c => c.classList.add('locked'));
 	  document.getElementById('credits-val').disabled = true;
 
     } else {
         viewLabel.innerText = `Day ${selectedDays[0]}`;
-        lockMsg.style.display = 'none';
+        lockMsg.style.visibility = 'hidden';
         controls.forEach(c => c.classList.remove('locked'));
         document.getElementById('credits-val').disabled = false;
 
@@ -446,11 +489,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (hasData) { 
        badge.style.display = 'inline-block';
+       badge.style.visibility = 'visible';
        badge.innerText = `TIER ${tier}`;
        badge.style.color = color;
        badge.style.borderColor = color;
     } else {
-       badge.style.display = 'none';
+       badge.style.visibility = 'hidden';
     }
   }
 

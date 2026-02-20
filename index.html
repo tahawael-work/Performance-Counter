@@ -11,10 +11,11 @@
   
 </head>
 <body>
+<button id="toggle-left-btn" onclick="toggleLeft()" title="Show/hide menu"></button>
 <div class="container">
   <div class="lmaoaoa">
-<div class="left">
-    <div class="metric-card" style="width: max-content;">
+<div class="left" id="left-panel">
+    <div class="metric-card" style="width: max-content; width: max-content; zoom: 75%;">
       <div class="controls" id="ctrl-credits">
         <span class="percentage" id="ready">Ready</span>
         <input type="" id="ready-val" class="manual-input" value="0" style="width: 40px; margin-right: 15px;">
@@ -54,9 +55,7 @@
     <button id="data-pst" class="btn-main btn-secondary" onclick="importData()">Paste JSON</button>
   </div>
 
-    <div id="lock-msg" class="lock-message">
-        Viewing Totals: Editing Disabled (Select a single day to edit)
-    </div>
+
 
   </div>
 </div>
@@ -84,7 +83,7 @@
 
     <div class="metric-card">
       <div class="metric-info">
-        <span class="label">Payments <span id="pay-tier" class="tier-badge" style="display:none">T1</span></span>
+        <span class="label">Payments <span id="pay-tier" class="tier-badge" style="visibility :hidden">T1</span></span>
         <span id="pay-perc" class="percentage">0.0%</span>
       </div>
       <div class="controls" id="ctrl-pay">
@@ -96,7 +95,7 @@
 
     <div class="metric-card">
       <div class="metric-info">
-        <span class="label">Full Balance <span id="full-tier" class="tier-badge" style="display:none">T1</span></span>
+        <span class="label">Full Balance <span id="full-tier" class="tier-badge" style="visibility :hidden">T1</span></span>
         <span id="full-perc" class="percentage">0.0%</span>
       </div>
       <div class="controls" id="ctrl-full">
@@ -135,7 +134,7 @@
     </div>
     <div class="metric-card">
       <div class="metric-info">
-        <span class="label">Removed Post. <span id="post-tier" class="tier-badge" style="display:none">T1</span></span>
+        <span class="label">Removed Post. <span id="post-tier" class="tier-badge" style="visibility :hidden">T1</span></span>
         <span id="post-perc" class="percentage">0.0%</span>
       </div>
       <div class="controls" id="ctrl-post">
@@ -193,6 +192,9 @@
 <div class="credits">
     Made by :3
   </div>
+      <div id="lock-msg" class="lock-message">
+        Viewing Totals: Editing Disabled (Select a single day to edit)
+    </div>
 </div>
 
 <script src="./main.js" defer></script>

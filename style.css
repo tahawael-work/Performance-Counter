@@ -1,4 +1,4 @@
-    :root {
+:root {
       --primary: #fdc9c9;
       --primary-hover: #f9abab;
       --bg: #0f172a;
@@ -31,8 +31,7 @@
       color: var(--text-main);
       margin: 0;
       display: flex;
-      justify-content: center;
-      align-items: center;
+      justify-content: space-evenly;
       min-height: 100vh;
     }
 
@@ -40,6 +39,7 @@
       width: 100%;
       max-width: 500px;
       padding: 10px;
+      align-content: center;
     }
 
     /* --- Calendar Grid Styles --- */
@@ -48,9 +48,10 @@
         padding: 15px;
         border-radius: 20px;
         border: 1px solid rgba(255,255,255,0.1);
-	  margin-bottom: 20px;
-	  height: fit-content;
-	  min-width: 350px;
+	  /* margin-bottom: 20px; */
+	  /* height: fit-content; */
+	  /* min-width: 350px; */
+    max-width: 350px;
     }
     .chart-box {
         position: relative; 
@@ -125,7 +126,9 @@
       padding: 32px;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
       position: relative;
-	min-width: 420px;
+    	min-width: 420px;
+      height: fit-content;
+
     }
 
     /* Edit Lock Overlay */
@@ -136,16 +139,15 @@
     }
 
     .lock-message {
-        display: none;
+        /* display: none; */
+        visibility: hidden;
         text-align: center;
         font-size: 12px;
         color: var(--warning);
-        margin-bottom: 10px;
         background: rgba(245, 158, 11, 0.1);
         padding: 8px;
         border-radius: 8px;
         border: 1px solid rgba(245, 158, 11, 0.3);
-	  margin-top: 20px;
     }
 
     h1 {
@@ -329,12 +331,47 @@
     .lmaoaoa{
 	justify-content: center;
 	padding-bottom: 30px;
+  display: flex;
+      align-items: flex-end;
 	}
 	.left{
 	
-
+    margin-right: 25px;
 	}
 
+    #toggle-left-btn {
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      z-index: 1000;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--card);
+      color: var(--text-main);
+      border: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      font-size: 1.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    #toggle-left-btn:hover {
+      background: var(--primary-hover);
+      color: var(--bg);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    }
+    @media (max-width: 600px) {
+      #toggle-left-btn {
+        top: 8px;
+        left: 8px;
+        width: 38px;
+        height: 38px;
+        font-size: 1.2rem;
+      }
+    }
 
 
 
