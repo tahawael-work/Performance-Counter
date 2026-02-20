@@ -556,36 +556,42 @@ if (input === null) return;
   }
 
   // --- SCREENSHOT ---
-  document.getElementById('copy-btn').onclick = function() {
-    const btn = this;
-    const area = document.getElementById('metrics-capture-area');
-    
-    // Temporarily hide lock message for screenshot
-    const lockMsg = document.getElementById('lock-msg');
-    const wasVisible = lockMsg.style.display !== 'none';
-    lockMsg.style.display = 'none';
+document.getElementById('copy-btn').onclick = function() {
+  const btn = this;
+  const area = document.getElementById('metrics-capture-area');
+  
+  html2canvas(area, { 
+      backgroundColor: '#0f172a',
+      scale: 3,
+      // Inject CSS into the cloned document to stop all animations
+      onclone: (clonedDocument) => {
+          const style = clonedDocument.createElement('style');
+          // Force all elements to bypass transitions and animations
+          style.innerHTML = `
+            * { 
+              transition: none !important; 
+              animation: none !important; 
+            }
+          `;
+          clonedDocument.head.appendChild(style);
+      }
+  }).then(canvas => {
+    canvas.toBlob(blob => {
+      // Check if blob exists to prevent errors
+      if (!blob) return; 
 
-    html2canvas(area, { 
-        backgroundColor: '#0f172a',
-        scale: 3,
-        borderRadius: 28
-    }).then(canvas => {
-      // Restore lock message
-      if (wasVisible) lockMsg.style.display = 'block';
-
-      canvas.toBlob(blob => {
-        const item = new ClipboardItem({ [blob.type]: blob });
-        navigator.clipboard.write([item]).then(() => {
-          btn.innerText = "Copied! ✅";
-          btn.style.background = "var(--success)";
-          setTimeout(() => {
-            btn.innerText = "Screenshot";
-            btn.style.background = "var(--primary)";
-          }, 2000);
-        });
+      const item = new ClipboardItem({ [blob.type]: blob });
+      navigator.clipboard.write([item]).then(() => {
+        btn.innerText = "Copied! ✅";
+        btn.style.background = "var(--success)";
+        setTimeout(() => {
+          btn.innerText = "Screenshot";
+          btn.style.background = "var(--primary)";
+        }, 2000);
       });
     });
-  };
+  });
+};
 
   // --- TIMER ---
   function updateTimer() {
