@@ -16,7 +16,7 @@
   const params = new URLSearchParams(window.location.search);
   // If "name" isn't in the URL, redirect to include it
   if (!params.has('name')) {
-    params.set('name', "Taha");
+    params.set('name', "bnfvgjnhgf");
     window.location.search = params.toString();
   }
     })();
