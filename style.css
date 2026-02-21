@@ -303,7 +303,7 @@
       width: 100%;
       margin-top: 5%;
     }
-
+ 
     .btn-main:hover { background: var(--primary-hover); transform: translateY(-2px); }
     .btn-main:active { transform: translateY(0); }
 
